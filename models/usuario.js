@@ -5,6 +5,9 @@ const UsuarioSchema = Schema({
         type: String,
         required: [true, 'El nombre es obligatorio']
     },
+    uid: {
+        type: String,
+    },
     correo: {
         type: String,
         required: [true, 'El correo es obligatorio'],
@@ -34,7 +37,8 @@ const UsuarioSchema = Schema({
 
 // Sobreescribir toJson para no mostrar ni la version ni el paswword
 UsuarioSchema.methods.toJSON = function() {
-    const { __v, password, ...usuario } = this.toObject();
+    const { __v, password, _id, ...usuario } = this.toObject();
+    usuario.uid = _id;
     return usuario
 }
 
